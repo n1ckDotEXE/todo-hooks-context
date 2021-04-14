@@ -1,55 +1,49 @@
 import React, { useEffect, useState } from "react";
+import { TodoInputContext, TodoContext } from "./context/context";
+
+import TodoInput from "./TodoInput";
+import Todo from "./Todo";
+
 import "./App.css";
 
+let todoObj = [
+	{
+		id: 1,
+		todo: "number 1",
+		isCompleted: false,
+	},
+	{
+		id: 2,
+		todo: "number 2",
+	},
+];
+
 function App() {
-	const [number, setNumber] = useState(0);
-	const [movieInput, setMovieInput] = useState("spiderman");
+	const [todoArray, setTodoArray] = useState(todoObj);
 
-	function handleMinusClick() {
-		//setNumber(number - 1);
-		setNumber((prevValue) => prevValue - 1);
+	function showTodoInput() {
+		return <TodoInput />;
 	}
 
-	function handlePlusClick() {
-		//setNumber(number + 1);
-		setNumber((prevValue) => prevValue + 1);
-	}
-
-	async function fetchMovie() {
-		const response = await fetch(
-			`http://www.omdbapi.com/?apikey=6332b1e1&s=${movieInput}`
-		);
-		const data = await response.json();
-		console.log(data);
-		try {
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-	useEffect(() => {
-		console.log("useEffect ran");
-		fetchMovie();
-	}, [movieInput]);
-	function handleMovieOnChange(event) {
-		setMovieInput(event.target.value);
+	function showTodo() {
+		return todoArray.map((item) => {
+			return (
+				<TodoContext.Provider
+					key={item.id}
+					value={{
+						todoItem: item,
+					}}
+				>
+					<Todo />
+				</TodoContext.Provider>
+			);
+		});
 	}
 
 	return (
 		<div className="App">
-			<div>{number}</div>
-			<div>
-				<button onClick={handleMinusClick}>-</button>
-				<button onClick={handlePlusClick}>+</button>
-			</div>
-			<div>
-				<input
-					type="text"
-					name="movieInput"
-					value={movieInput}
-					onChange={handleMovieOnChange}
-				/>
-			</div>
+			{showTodoInput()}
+			{showTodo()}
 		</div>
 	);
 }
