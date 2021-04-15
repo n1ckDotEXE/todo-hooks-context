@@ -43,6 +43,10 @@ function App() {
 
 	function handleDeleteTodoById(id) {
 		console.log(id);
+
+		let newFilteredTodoArray = todoArray.filter((item) => item.id !== id);
+
+		setTodoArray(newFilteredTodoArray);
 	}
 
 	function showTodo() {
