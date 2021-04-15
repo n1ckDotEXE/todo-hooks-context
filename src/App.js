@@ -26,6 +26,11 @@ function App() {
 
 	function addTodo(todo) {
 		console.log(todo);
+		let newAddedTodoArray = [
+			...todoArray,
+			{ id: uuidv4(), todo, isCompleted: false },
+		];
+		setTodoArray(newAddedTodoArray);
 	}
 
 	function showTodoInput() {
@@ -36,6 +41,10 @@ function App() {
 		);
 	}
 
+	function handleDeleteTodoById(id) {
+		console.log(id);
+	}
+
 	function showTodo() {
 		return todoArray.map((item) => {
 			return (
@@ -43,6 +52,7 @@ function App() {
 					key={item.id}
 					value={{
 						todoItem: item,
+						handleDeleteTodoById,
 					}}
 				>
 					<Todo />

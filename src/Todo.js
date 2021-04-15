@@ -4,13 +4,14 @@ import { TodoContext } from "./context/context";
 function Todo() {
 	const {
 		todoItem: { id, todo },
+		handleDeleteTodoById,
 	} = useContext(TodoContext);
 
 	return (
 		<div>
 			{todo}
 			<button>Done</button>
-			<button>Delete</button>
+			<button onClick={() => handleDeleteTodoById(id)}>Delete</button>
 		</div>
 	);
 }
