@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import { TodoInputContext, TodoContext } from "./context/context";
 
 import TodoInput from "./TodoInput";
@@ -8,12 +10,12 @@ import "./App.css";
 
 let todoObj = [
 	{
-		id: 1,
+		id: uuidv4(),
 		todo: "number 1",
 		isCompleted: false,
 	},
 	{
-		id: 2,
+		id: uuidv4(),
 		todo: "number 2",
 		isCompleted: false,
 	},
