@@ -15,14 +15,23 @@ let todoObj = [
 	{
 		id: 2,
 		todo: "number 2",
+		isCompleted: false,
 	},
 ];
 
 function App() {
 	const [todoArray, setTodoArray] = useState(todoObj);
 
+	function addTodo(todo) {
+		console.log(todo);
+	}
+
 	function showTodoInput() {
-		return <TodoInput />;
+		return (
+			<TodoInputContext.Provider value={{ addTodo }}>
+				<TodoInput />
+			</TodoInputContext.Provider>
+		);
 	}
 
 	function showTodo() {
