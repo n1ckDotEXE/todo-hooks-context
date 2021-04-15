@@ -8,18 +8,18 @@ import Todo from "./Todo";
 
 import "./App.css";
 
-let todoObj = [
-	{
-		id: uuidv4(),
-		todo: "number 1",
-		isCompleted: false,
-	},
-	{
-		id: uuidv4(),
-		todo: "number 2",
-		isCompleted: false,
-	},
-];
+// let todoObj = [
+// 	{
+// 		id: uuidv4(),
+// 		todo: "number 1",
+// 		isCompleted: false,
+// 	},
+// 	{
+// 		id: uuidv4(),
+// 		todo: "number 2",
+// 		isCompleted: false,
+// 	},
+// ];
 
 function App() {
 	const initialTodos = window.localStorage.getItem("todos")
@@ -77,6 +77,10 @@ function App() {
 			);
 		});
 	}
+
+	useEffect(() => {
+		window.localStorage.setItem("todos", JSON.stringify(todoArray));
+	}, [todoArray]);
 
 	return (
 		<div className="App">
