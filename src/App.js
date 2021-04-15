@@ -22,7 +22,11 @@ let todoObj = [
 ];
 
 function App() {
-	const [todoArray, setTodoArray] = useState(todoObj);
+	const initialTodos = window.localStorage.getItem("todos")
+		? JSON.parse(window.localStorage.getItem("todos"))
+		: [];
+
+	const [todoArray, setTodoArray] = useState(initialTodos);
 
 	function addTodo(todo) {
 		console.log(todo);
@@ -42,11 +46,19 @@ function App() {
 	}
 
 	function handleDeleteTodoById(id) {
-		console.log(id);
-
 		let newFilteredTodoArray = todoArray.filter((item) => item.id !== id);
 
 		setTodoArray(newFilteredTodoArray);
+	}
+
+	function handleDoneTodoById(id) {
+		let newTodoArray = todoArray.map((item) => {
+			if (item.id === id) {
+				item.isCompleted = !item.isCompleted;
+			}
+			return item;
+		});
+		setTodoArray(newTodoArray);
 	}
 
 	function showTodo() {
@@ -57,6 +69,7 @@ function App() {
 					value={{
 						todoItem: item,
 						handleDeleteTodoById,
+						handleDoneTodoById,
 					}}
 				>
 					<Todo />
